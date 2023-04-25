@@ -12,12 +12,19 @@ The individual length of the videos are fetched from quering invidious REST API.
 `/api/v1/playlists/:plid` already includes lengthSeconds for each video in the playlists.
 Thus there is no need to query `/api/v1/videos/:videoid` seperately.
 Besides, please use fetch API instead.
+
+In the videos array, every video has a "index" key.
+I would check that key to make sure it matches the array index
+(throws an error if mismatch is found).
 */
+type Video = {
+  id: string;
+  lengthSeconds: number;
+  index: number;
+};
+
 type Playlist = {
-  videos: {
-    id: string;
-    lengthSeconds: number;
-  }[];
+  videos: Video[];
 };
 
 const fetchPlaylist = async (playlistId: string): Promise<Playlist> => {
@@ -38,6 +45,9 @@ const calculatePlaylistDuration = async (
   let totalDuration = 0;
   for (let i = startIndex; i <= endIndex; i++) {
     const video = videos[i];
+    if (video.index !== i) {
+      throw new Error(`Video index mismatch at index ${i}`);
+    }
     totalDuration += video.lengthSeconds;
   }
 
