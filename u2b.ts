@@ -8,20 +8,24 @@ Write a TypeScript program accepts three arguments:
 and returns the total length (playtime) of all videos
 between the starting video (included) and the ending video (included).
 The individual length of the videos are fetched from quering invidious REST API.
-*/
-import axios from "axios";
 
-type Video = {
-  id: string;
-  duration: number;
+`/api/v1/playlists/:plid` already includes lengthSeconds for each video in the playlists.
+Thus there is no need to query `/api/v1/videos/:videoid` seperately.
+Besides, please use fetch API instead.
+*/
+type Playlist = {
+  videos: {
+    id: string;
+    lengthSeconds: number;
+  }[];
 };
 
-const fetchVideoDuration = async (videoId: string): Promise<number> => {
-  const response = await axios.get(
-    `https://invidious.snopyta.org/api/v1/videos/${videoId}`,
+const fetchPlaylist = async (playlistId: string): Promise<Playlist> => {
+  const response = await fetch(
+    `https://invidious.snopyta.org/api/v1/playlists/${playlistId}`,
   );
-  const { duration } = response.data as Video;
-  return duration;
+  const data = await response.json();
+  return data as Playlist;
 };
 
 const calculatePlaylistDuration = async (
@@ -29,16 +33,12 @@ const calculatePlaylistDuration = async (
   startIndex: number,
   endIndex: number,
 ): Promise<number> => {
-  const response = await axios.get(
-    `https://invidious.snopyta.org/api/v1/playlists/${playlistId}`,
-  );
-  const { videos } = response.data;
+  const { videos } = await fetchPlaylist(playlistId);
 
   let totalDuration = 0;
   for (let i = startIndex; i <= endIndex; i++) {
     const video = videos[i];
-    const duration = await fetchVideoDuration(video.id);
-    totalDuration += duration;
+    totalDuration += video.lengthSeconds;
   }
 
   return totalDuration;
