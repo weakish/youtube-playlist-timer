@@ -55,6 +55,7 @@ const calculatePlaylistDuration = async (
 };
 
 // Example usage:
-calculatePlaylistDuration("playlistId", 2, 5).then((duration) =>
-  console.log(duration)
-);
+// const samplePlaylistId = ""
+// calculatePlaylistDuration(samplePlaylistId, 43, 47).then((duration) =>
+//   console.log(duration)
+// );
