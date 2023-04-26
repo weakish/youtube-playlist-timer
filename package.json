@@ -7,11 +7,14 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "check": "svelte-check --tsconfig ./tsconfig.json"
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "lint": "eslint"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^2.0.3",
     "@tsconfig/svelte": "^4.0.1",
+    "eslint": "^8.39.0",
+    "eslint-plugin-svelte": "^2.27.0",
     "svelte": "^3.57.0",
     "svelte-check": "^2.10.3",
     "tslib": "^2.5.0",
