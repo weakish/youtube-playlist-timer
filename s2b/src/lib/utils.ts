@@ -25,10 +25,21 @@ type Playlist = {
   videos: Video[];
 };
 
-const fetchPlaylist = async (playlistId: string): Promise<Playlist> => {
-  const response = await fetch(
-    `https://invidious.snopyta.org/api/v1/playlists/${playlistId}`,
-  );
+/* I asked Codeium Chat:
+Currently this function uses invidious.snopyta.org as API host.
+I'd like to add an extra parameter to specify the host instead.
+*/
+/**
+ * Fetches a playlist from the specified playlist ID
+ * @param playlistId - The ID of the playlist to fetch
+ * @param apiHost - The API host to fetch the playlist from
+ * @returns - A Promise that resolves to a Playlist object
+ */
+const fetchPlaylist = async (
+  playlistId: string,
+  apiHost: string = 'https://invidious.snopyta.org/api/v1'
+): Promise<Playlist> => {
+  const response = await fetch(`${apiHost}/playlists/${playlistId}`);
   const data = await response.json();
   return data as Playlist;
 };
