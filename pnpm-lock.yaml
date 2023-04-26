@@ -14,7 +14,7 @@ devDependencies:
     specifier: ^2.27.0
     version: 2.27.0(eslint@8.39.0)(svelte@3.57.0)
   husky:
-    specifier: ^8.0.3
+    specifier: ^8.0.0
     version: 8.0.3
   husky-init:
     specifier: ^8.0.0
