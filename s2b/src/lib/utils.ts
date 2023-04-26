@@ -59,3 +59,22 @@ export const calculatePlaylistDuration = async (
 // calculatePlaylistDuration(samplePlaylistId, 43, 47).then((duration) =>
 //   console.log(duration)
 // );
+
+/* I asked Codeium Chat:
+Can you write a TypeScript function which accepts a string,
+which may be a YouTube playlist ID, or a YouTube URL containing the playlist ID,
+and returns the YouTube playlistID?
+*/
+function extractPlaylistId(input: string): string | undefined {
+  const playlistIdRegex = /(PL[a-zA-Z0-9_-]+)/;
+  const urlMatches = input.match(playlistIdRegex);
+
+  if (urlMatches) {
+    return urlMatches[1];
+  } else if (playlistIdRegex.test(input)) {
+    return input.match(playlistIdRegex)?.[1];
+  }
+
+  return undefined;
+}
+
