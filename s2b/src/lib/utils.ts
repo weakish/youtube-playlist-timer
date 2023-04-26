@@ -1,6 +1,4 @@
-/*
-I asked Codeium Chat:
-
+/* I asked Codeium Chat:
 Write a TypeScript program accepts three arguments:
 1) playlist id,
 2) the starting video index,
@@ -64,17 +62,13 @@ export const calculatePlaylistDuration = async (
 Can you write a TypeScript function which accepts a string,
 which may be a YouTube playlist ID, or a YouTube URL containing the playlist ID,
 and returns the YouTube playlistID?
+
+I do not think it is necessary to call match twice and test once.
+Also, it is unnecessary to put the whole regex in a group.
 */
 function extractPlaylistId(input: string): string | undefined {
-  const playlistIdRegex = /(PL[a-zA-Z0-9_-]+)/;
-  const urlMatches = input.match(playlistIdRegex);
+  const playlistIdRegex = /PL[a-zA-Z0-9_-]+/;
+  const match = input.match(playlistIdRegex);
 
-  if (urlMatches) {
-    return urlMatches[1];
-  } else if (playlistIdRegex.test(input)) {
-    return input.match(playlistIdRegex)?.[1];
-  }
-
-  return undefined;
+  return match?.[0];
 }
-
