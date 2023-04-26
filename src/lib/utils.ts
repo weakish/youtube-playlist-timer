@@ -45,15 +45,15 @@ export const calculatePlaylistDuration = async (
 
 export function extractPlaylistId(input: string): string | undefined {
   const url = new URL(input);
-  const playlistId = url.searchParams.get('list');
+  const playlistId = url.searchParams.get("list");
 
   return playlistId;
 }
 
 type InstanceInfo = {
   api: boolean;
-}
-export type Instance = [string, InstanceInfo]
+};
+export type Instance = [string, InstanceInfo];
 
 export function filterApiInstance(instances: Instance[]): string[] {
   return instances.filter(([_, { api }]) => api).map(([host, _]) => host);
