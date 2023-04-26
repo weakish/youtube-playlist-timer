@@ -65,9 +65,14 @@ and returns the YouTube playlistID?
 
 I do not think it is necessary to call match twice and test once.
 Also, it is unnecessary to put the whole regex in a group.
+
+I am a bit worried on corner cases for matching Playlist ID with `/PL[a-zA-Z0-9_-]+/`.
+Special playlists may not use `PL` as prefix. [0](https://stackoverflow.com/q/19795987/)
+
+Can you think of other ways to extract Playlist ID?
 */
 function extractPlaylistId(input: string): string | undefined {
-  const playlistIdRegex = /PL[a-zA-Z0-9_-]+/;
+  const playlistIdRegex = /(?:PL|FL|RD)[a-zA-Z0-9_-]+/;
   const match = input.match(playlistIdRegex);
 
   return match?.[0];
