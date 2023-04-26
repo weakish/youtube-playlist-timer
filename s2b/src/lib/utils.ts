@@ -71,7 +71,7 @@ Special playlists may not use `PL` as prefix. [0](https://stackoverflow.com/q/19
 
 Can you think of other ways to extract Playlist ID?
 */
-function extractPlaylistId(input: string): string | undefined {
+export function extractPlaylistId(input: string): string | undefined {
   const url = new URL(input);
   const playlistId = url.searchParams.get('list');
 
