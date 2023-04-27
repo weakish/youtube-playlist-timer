@@ -52,9 +52,10 @@ export function extractPlaylistId(input: string): string | undefined {
 
 type InstanceInfo = {
   api: boolean;
+  uri: string;
 };
 export type Instance = [string, InstanceInfo];
 
 export function filterApiInstance(instances: Instance[]): string[] {
-  return instances.filter(([_, { api }]) => api).map(([host, _]) => host);
+  return instances.filter(([_, { api }]) => api).map(([_, { uri }]) => uri);
 }
