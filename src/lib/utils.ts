@@ -8,14 +8,14 @@ type Playlist = {
   videos: Video[];
 };
 
-const fetchPlaylist = async (
+async function fetchPlaylist(
   playlistId: string,
   apiHost: string
-): Promise<Playlist> => {
+): Promise<Playlist> {
   const response = await fetch(`${apiHost}/api/v1/playlists/${playlistId}`);
   const data = await response.json();
   return data as Playlist;
-};
+}
 
 export const calculatePlaylistDuration = async (
   playlistId: string,

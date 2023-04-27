@@ -25,7 +25,7 @@
 </script>
 
 <form id="playlistInfo">
-  <label for="playlistId">YouTube Playlist ID<sup>1</sup></label>
+  <label for="playlistId">YouTube Playlist URL<sup>1</sup></label>
   <input type="text" id="playlistId" bind:value={playlistId} required />
   <br />
 
@@ -61,15 +61,14 @@
 <p>Notes:</p>
 <ol>
   <li>
-    You can also paste the whole playlist URL, or a URL containing the <code
-      >list</code
-    > URL parameter.
+    You can also paste a YouTube video URL containing the <code>list</code> URL parameter.
   </li>
   <li>Index starts from 1, as displayed at YouTube website UI.</li>
   <li>Included.</li>
   <li>
     Accessing YouTube Data API requires an API key, which is not suitable for a
-    static site. Thus, <a href="https://docs.invidious.io/api/">Invidious API</a>
+    static site. Thus, <a href="https://docs.invidious.io/api/">Invidious API</a
+    >
     is used instead. You can choose from the list of available instances, or input
     your own. Invidious is an alternative frontend to YouTube not using official
     YouTube API.
