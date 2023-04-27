@@ -68,8 +68,8 @@
   <li>Index starts from 1, as displayed at YouTube website UI.</li>
   <li>Included.</li>
   <li>
-    Accessing YouTubde Data API requires an API key, which is not suitable for a
-    staic site. Thus, <a href="https://docs.invidious.io/api/">Invidious API</a>
+    Accessing YouTube Data API requires an API key, which is not suitable for a
+    static site. Thus, <a href="https://docs.invidious.io/api/">Invidious API</a>
     is used instead. You can choose from the list of available instances, or input
     your own. Invidious is an alternative frontend to YouTube not using official
     YouTube API.
