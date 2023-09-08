@@ -14,7 +14,7 @@
   let playlistId: string = "";
   let startIndex: number = 1;
   let endIndex: number = 0;
-  let apiHost = "https://invidious.snopyta.org/api/v1";
+  let apiHost = apiHosts[0];
   const sum = async () => {
     timeLength = 0;
     for (const id of playlistId.split("\n")) {
