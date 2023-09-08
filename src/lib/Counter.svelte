@@ -33,7 +33,11 @@
     ><input type="checkbox" bind:checked={multiplePlaylist} />Multiple Mode</label
   >
   <label for="playlistId">YouTube Playlist URL<sup>1</sup></label>
-  <input type="text" id="playlistId" bind:value={playlistId} required />
+  {#if multiplePlaylist}
+    <textarea id="playlistId" bind:value={playlistId} required />
+  {:else}
+    <input type="text" id="playlistId" bind:value={playlistId} required />
+  {/if}
   <br />
   {#if !multiplePlaylist}
     <label for="startIndex">Start index<sup>2</sup></label>
