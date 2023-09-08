@@ -10,40 +10,48 @@
   const apiHosts = filterApiInstance(instances as Instance[]);
 
   let timeLength: number = 0;
+  let multiplePlaylist: boolean = false;
   let playlistId: string = "";
   let startIndex: number = 1;
-  let endIndex: number = 2;
+  let endIndex: number = 0;
   let apiHost = "https://invidious.snopyta.org/api/v1";
   const sum = async () => {
-    timeLength = await calculatePlaylistDuration(
-      extractPlaylistId(playlistId),
-      startIndex - 1,
-      endIndex - 1,
-      apiHost
-    );
+    timeLength = 0;
+    for (const id of playlistId.split("\n")) {
+      timeLength += await calculatePlaylistDuration(
+        extractPlaylistId(id),
+        startIndex - 1,
+        endIndex - 1,
+        apiHost
+      );
+    }
   };
 </script>
 
 <form id="playlistInfo">
+  <label
+    ><input type="checkbox" bind:checked={multiplePlaylist} />Multiple Mode</label
+  >
   <label for="playlistId">YouTube Playlist URL<sup>1</sup></label>
   <input type="text" id="playlistId" bind:value={playlistId} required />
   <br />
+  {#if !multiplePlaylist}
+    <label for="startIndex">Start index<sup>2</sup></label>
+    <input
+      type="number"
+      id="startIndex"
+      bind:value={startIndex}
+      required
+      min="1"
+    />
+    <br />
 
-  <label for="startIndex">Start index<sup>2</sup></label>
-  <input
-    type="number"
-    id="startIndex"
-    bind:value={startIndex}
-    required
-    min="1"
-  />
-  <br />
+    <label for="endIndex">End index<sup>3</sup></label>
+    <input type="number" id="endIndex" bind:value={endIndex} required min="0" />
+    <br />
+  {/if}
 
-  <label for="endIndex">End index<sup>3</sup></label>
-  <input type="number" id="endIndex" bind:value={endIndex} required min="2" />
-  <br />
-
-  <label for="apiHost">API host<sup>4</sup></label>
+  <label for="apiHost">API host<sup>{multiplePlaylist ? 2 : 4}</sup></label>
   <input list="apiHosts" id="apiHost" bind:value={apiHost} />
   <datalist id="apiHosts">
     {#each apiHosts as host}
@@ -61,10 +69,17 @@
 <p>Notes:</p>
 <ol>
   <li>
-    You can also paste a YouTube video URL containing the <code>list</code> URL parameter.
+    You can also paste a YouTube video URL containing the <code>list</code> URL
+    parameter.
+    {#if multiplePlaylist}
+      Please separate multiple URLs with the newline character (<code>\n</code
+      >). Note that if repeated URLs are provideded, there will be <em>no</em> deduplication.
+    {/if}
   </li>
-  <li>Index starts from 1, as displayed at YouTube website UI.</li>
-  <li>Included.</li>
+  {#if !multiplePlaylist}
+    <li>Index starts from 1, as displayed at YouTube website UI.</li>
+    <li>Included. 0 is to calculate all videos in the playlist.</li>
+  {/if}
   <li>
     Accessing YouTube Data API requires an API key, which is not suitable for a
     static site. Thus, <a href="https://docs.invidious.io/api/">Invidious API</a

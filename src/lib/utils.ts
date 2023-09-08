@@ -26,6 +26,9 @@ export const calculatePlaylistDuration = async (
   const { videos } = await fetchPlaylist(playlistId, apiHost);
 
   let totalDuration = 0;
+  if (endIndex == -1) {
+    endIndex = videos.length - 1;
+  }
   for (let i = startIndex; i <= endIndex; i++) {
     const video = videos[i];
     if (video.index !== i) {
